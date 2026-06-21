@@ -588,11 +588,11 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); 
         <h4>🎭 VADER + VR domain lexicon extension</h4>
         <p>VADER handles informal text and short phrases well — a good fit for interview transcripts and sticky notes. Extended with 17 VR and spatial domain terms before any scoring: <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">immersive: +2.5</code>, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">grounded: +1.8</code>, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">claustrophobic: −2.5</code>, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">disconnected: −3.0</code>, and more. Applied via <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">analyser.lexicon.update()</code> before any scoring. Weighted means use source weights, not raw document count — so 20 interview segments contribute more signal than 60 sticky notes.</p>
         <div class="method-win">✦ The domain extension is the highest-leverage preprocessing step: without it, VADER scores <em>floating</em> neutrally and leaves <em>grounding</em> unrecognised — both high-frequency terms in VR feedback.</div>
-        <img src="https://klaire03.github.io/images/NLP_-_Weighted mean sentiment per environment.png" alt="Weighted mean sentiment per environment" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_Weighted mean sentiment per environment.png" alt="Weighted mean sentiment per environment" class="method-image"/>
         <p class="method-image-caption">Fig 1 — All environments score positively, but spread is wide. Residential Warm (+0.696) leads; Clean Studio (+0.274) trails.</p>
-        <img src="https://klaire03.github.io/images/NLP_-_Sentiment by environment and source channel.png" alt="Sentiment by environment and source channel" class="method-image" style="margin-top:12px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_Sentiment by environment and source channel.png" alt="Sentiment by environment and source channel" class="method-image" style="margin-top:12px;"/>
         <p class="method-image-caption">Fig 2 — Survey, interview, and sticky note channels compared side-by-side. Divergence flags environments where source type shapes perception.</p>
-        <img src="https://klaire03.github.io/images/NLP_-Sentiment distribution per environment.png" alt="Sentiment distribution per environment" class="method-image" style="margin-top:12px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-Sentiment distribution per environment.png" alt="Sentiment distribution per environment" class="method-image" style="margin-top:12px;"/>
         <p class="method-image-caption">Fig 3 — Clean Studio's violin stretches from −0.75 to +0.95 — users either value its neutrality or find it sterile.</p>
       </div>
 
@@ -602,11 +602,11 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); 
         <h4>😮 NRC Emotion Lexicon — self-contained, 8 dimensions</h4>
         <p>The NRC lexicon maps words to joy, trust, fear, surprise, sadness, disgust, anger, and anticipation. Embedded as a Python dict (~160 words curated for the VR context) rather than using the fragile <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">nrclex</code> library — more robust, no download required, and curated for the spatial vocabulary specific to this dataset. Scores are the proportion of matched emotion tokens per category.</p>
         <div class="method-callout"><strong>⚠ Note:</strong> No negation awareness — "no joy" scores positive on joy. Use scores comparatively across environments. Short sticky notes scoring zero on all dimensions is expected behaviour, not a bug.</div>
-        <img src="https://klaire03.github.io/images/NLP_-Emotion intensity heatmap.png" alt="Emotion intensity heatmap" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-Emotion intensity heatmap.png" alt="Emotion intensity heatmap" class="method-image"/>
         <p class="method-image-caption">Fig 8 — Executive Boardroom peaks on trust (0.641). Futuristic Tech leads on joy (0.375). City Loft uniquely scores highest on anticipation (0.323).</p>
-        <img src="https://klaire03.github.io/images/NLP_-Individual emotion profiles.png" alt="NRC emotion profiles radar chart" class="method-image" style="margin-top:12px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-Individual emotion profiles.png" alt="NRC emotion profiles radar chart" class="method-image" style="margin-top:12px;"/>
         <p class="method-image-caption">Fig 9 — Overlaid radar showing each environment's 8-emotion signature. Trust-dominant Boardroom vs anticipation-dominant City Loft.</p>
-        <img src="https://klaire03.github.io/images/NLP_-wordcloud.png" alt="Word clouds per environment" class="method-image" style="margin-top:12px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-wordcloud.png" alt="Word clouds per environment" class="method-image" style="margin-top:12px;"/>
         <p class="method-image-caption">Fig 4 — Vocabulary fingerprints. Nature Space centres on natural light; Executive Boardroom on formal, client; City Loft on creative, city, view.</p>
       </div>
 
@@ -616,9 +616,9 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); 
         <h4>🏷 Zero-shot NLI — 8 meeting types, no labelled data</h4>
         <p>A pre-trained NLI model (<code style="font-size:.8rem;background:var(--light);padding:1px 4px;">facebook/bart-large-mnli</code> cascade) classifies each survey's occasion text into 8 meeting types: brainstorm, client pitch, deep work, team social, performance review, onboarding, all-hands, casual check-in. Multi-label with a 0.15 threshold allows a single response to match multiple occasions. A cascading fallback tries four models in order — first that loads wins.</p>
         <div class="method-win">✦ A rule-based fallback (environment → most likely occasions) keeps all downstream cells running even without internet access or HuggingFace credentials — making the notebook fully portable.</div>
-        <img src="https://klaire03.github.io/images/NLP_-_Occasion fit heatmap.png" alt="Occasion fit heatmap normalised per environment" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_Occasion fit heatmap.png" alt="Occasion fit heatmap normalised per environment" class="method-image"/>
         <p class="method-image-caption">Fig 5 — Executive Boardroom peaks on client_pitch (0.41) and performance_review (0.30) — explaining why its negative aggregate sentiment is a feature, not a flaw.</p>
-        <img src="https://klaire03.github.io/images/NLP_-_Meeting occasion.png" alt="Meeting occasion to environment mapping" class="method-image" style="margin-top:12px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_Meeting occasion.png" alt="Meeting occasion to environment mapping" class="method-image" style="margin-top:12px;"/>
         <p class="method-image-caption">Fig 6 — Each bar shows which environments capture that occasion. Nature Space has the broadest spread; Residential Warm monopolises casual_checkin.</p>
       </div>
 
@@ -636,7 +636,7 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); 
         <h4>🗂 TF-IDF + NMF — recurring themes across the corpus</h4>
         <p>TF-IDF (300 features, unigrams and bigrams, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">min_df=2</code>) represents each document as a term-frequency vector. NMF (8 components, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">random_state=42</code>) factorises into interpretable topic components, manually labelled from the top 8 keywords each. Topic assignment uses <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">argmax</code> on the NMF activation matrix — each document is assigned its single strongest topic. Visualised as a heatmap (per environment) and an interactive sunburst (topic × environment).</p>
         <div class="method-win">✦ NMF over LDA here because NMF produces sparser, more interpretable topics on short-document corpora. LDA's Dirichlet prior spreads signal too evenly when documents are only 1–3 sentences long.</div>
-        <img src="https://klaire03.github.io/images/NLP_-_Topic distribution per environment.png" alt="Topic distribution per environment NMF normalised" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_Topic distribution per environment.png" alt="Topic distribution per environment NMF normalised" class="method-image"/>
         <p class="method-image-caption">Fig 7 — City Loft dominated by Material warmth & texture (0.81). Nature Space by Natural light & presence (0.62). Clean Studio by Spatial scale & embodiment (0.57).</p>
       </div>
 
@@ -647,7 +647,7 @@ footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.06); 
         <p>Sentiment direction is computed separately per source for each environment. The <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">agreement()</code> function flags "full agreement" when all sources align, and "split signal" when they diverge. A composite confidence score combines cross-source variance (60%) and document count (40%), producing a per-environment reliability rating. The tech vs non-tech split filters to customer sources only, then splits by <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">customer_industry</code>. The Futuristic Tech environment shows a substantial sentiment gap between technology-sector and non-tech customers — invisible in aggregate scores. The synthesis table (design attribute + primary emotion + valence + top occasion + confidence) is the final deliverable for the 3D arts team.</p>
         <div class="method-win">✦ Natural light is the only design attribute with full agreement across all three sources — making it the single most actionable finding in the entire analysis. Every other finding has at least one source exception.</div>
         <div class="method-callout"><strong>⚠ Note:</strong> A split signal isn't necessarily wrong — it may reflect a genuine user-segment divide. Always check whether the split tracks a demographic variable (industry, job title, company size) before dismissing it as noise.</div>
-        <img src="https://klaire03.github.io/images/NLP_-_final synthesis.png" alt="Final synthesis table for 3D arts team" class="method-image" style="margin-top:16px;"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/NLP_-_final synthesis.png" alt="Final synthesis table for 3D arts team" class="method-image" style="margin-top:16px;"/>
         <p class="method-image-caption">Fig 10 — Final synthesis table: design attribute × primary emotion × valence × top occasion × confidence. Confidence scores range 0.731–0.821; rows below 0.75 warrant further data.</p>
       </div>
 
