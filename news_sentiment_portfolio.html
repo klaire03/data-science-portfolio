@@ -617,7 +617,7 @@ footer {
         <h4>🤗 XLM-RoBERTa — multilingual transformer on native text</h4>
         <p>The Cardiff NLP model (<code style="font-size:.8rem;background:var(--light);padding:1px 4px;">cardiffnlp/twitter-xlm-roberta-base-sentiment</code>) was fine-tuned on 198M multilingual tweets across 100+ languages including Greek. Running it on <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">Headline_Original</code> means Greek articles are scored in Greek — no translation step. The output <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">xlm_compound</code> maps the model's softmax confidence to [−1, 1] by multiplying confidence by the sign of the predicted label. VADER on translated English is kept as a baseline — the agreement rate between methods directly quantifies translation degradation. The <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">.capitalize()</code> call on the model's label string is a necessary defensive step — HuggingFace pipelines can return labels as POSITIVE or Positive depending on model version.</p>
         <div class="method-win">✦ VADER + machine translation introduces noise at every step: changed word choice, lost negation, false cognates. The disagreement rate — typically 30–40% — directly shows how much a VADER-only analysis would have been wrong.</div>
-        <img src="https://klaire03.github.io/images/news7.png" alt="Sentiment Method Comparison violin plots" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/news7.png" alt="Sentiment Method Comparison violin plots" class="method-image"/>
       </div>
 
       <div class="method-item fade-up">
@@ -626,7 +626,7 @@ footer {
         <h4>🗂 BERTopic + TF-IDF vocabulary profiling</h4>
         <p>BERTopic uses sentence embeddings from <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">all-MiniLM-L6-v2</code> rather than bag-of-words counts. "PM resigns" and "Prime Minister steps down" map to the same semantic neighbourhood regardless of surface wording. Pre-computed embeddings are passed directly to avoid recomputing them for later clustering steps. <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">min_topic_size=5</code>, <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">nr_topics='auto'</code>. A complementary TF-IDF analysis — treating each country's corpus as one document — extracts the most distinctive terms per outlet by IDF penalisation of shared vocabulary. Topic −1 is the BERTopic outlier cluster; always exclude it from distribution charts.</p>
         <div class="method-callout"><strong>⚠ Note:</strong> BERTopic is stochastic — results vary slightly between runs because UMAP and HDBSCAN are both non-deterministic. Pin <code style="font-size:.8rem;">umap_model</code> and <code style="font-size:.8rem;">hdbscan_model</code> with <code style="font-size:.8rem;">random_state=42</code> for reproducible topics.</div>
-        <img src="https://klaire03.github.io/images/news4.png" alt="Word clouds — Greece and South Korea key terms" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/news4.png" alt="Word clouds — Greece and South Korea key terms" class="method-image"/>
       </div>
 
       <div class="method-item fade-up">
@@ -636,7 +636,7 @@ footer {
         <p>Zero-shot classification frames each headline as an NLI entailment problem: "Does this headline entail the topic 'crime and justice'?" The model (<code style="font-size:.8rem;background:var(--light);padding:1px 4px;">cross-encoder/nli-MiniLM2-L6-H768</code>, ~22M params) was trained on MNLI to answer exactly these questions. Eight thematic categories cover the full editorial spectrum. Batched inference with <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">batch=16</code> provides 8–10× speedup over one-at-a-time inference on CPU. The original BART-large reference cell is kept in the notebook to document the performance problem explicitly.</p>
         <div class="method-win">✦ The smaller MiniLM model was chosen over BART-large (~400M params) for 8–10× faster CPU inference. The original BART-large reference cell is kept in the notebook so the optimisation decision is visible, not hidden.</div>
         <div class="method-callout"><strong>⚠ Edge case:</strong> when the final batch contains only one item, the HuggingFace pipeline returns a dict instead of a list. The <code style="font-size:.8rem;">isinstance(results, dict)</code> guard prevents the last batch's label being silently dropped.</div>
-        <img src="https://klaire03.github.io/images/news3.png" alt="Zero-shot topic classification and mean sentiment per category" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/news3.png" alt="Zero-shot topic classification and mean sentiment per category" class="method-image"/>
       </div>
 
       <div class="method-item fade-up">
@@ -645,7 +645,7 @@ footer {
         <h4>🔍 spaCy batch NER — what names appear in each outlet?</h4>
         <p>spaCy's <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">en_core_web_sm</code> model runs over translated headlines via <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">nlp.pipe()</code> for batch efficiency — significantly faster than looping <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">nlp()</code> per headline because it amortises model overhead across the batch. Entities are filtered to PERSON, ORG, GPE, and NORP — the four types most analytically relevant to news coverage. Set intersection across both outlets reveals the shared international news agenda — entities mentioned by both media cultures simultaneously.</p>
         <div class="method-callout"><strong>⚠ Note:</strong> NER accuracy on short headline text is lower than on full articles — less context to resolve ambiguous names. Always scan the top entity list for obvious misclassifications before citing in analysis.</div>
-        <img src="https://klaire03.github.io/images/news2.png" alt="Top people and organisations mentioned in Greece and South Korea headlines" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/news2.png" alt="Top people and organisations mentioned in Greece and South Korea headlines" class="method-image"/>
       </div>
 
       <div class="method-item fade-up">
@@ -654,7 +654,7 @@ footer {
         <h4>😨 NRC Emotion Lexicon + Flesch-Kincaid + event detection</h4>
         <p>The NRC lexicon (8 emotions: fear, anger, trust, surprise, sadness, disgust, joy, anticipation) is downloaded directly from GitHub rather than via the fragile <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">nrclex</code> library. Scores are normalised by total emotion-bearing words. Three readability metrics capture headline complexity: FK grade, average word length, and word count. Event detection computes daily sentiment means per country, calculates per-country z-scores (not global — to avoid flagging normal Greek days as spikes if Greek coverage is systematically more negative), and flags spikes at <code style="font-size:.8rem;background:var(--light);padding:1px 4px;">|z| &gt; 1.5</code>. The threshold of 1.5 rather than the conventional 2.0 is deliberate — daily means from a small scrape window have high variance.</p>
         <div class="method-callout"><strong>⚠ Note:</strong> NRC is word-level with no negation awareness — "no joy" scores positive on joy. Flesch-Kincaid was designed for multi-sentence text; treat absolute grade-level numbers as comparative, not literal, on headline-length text. Always check Article_Count on spike days: a spike with count=1 is likely noise.</div>
-        <img src="https://klaire03.github.io/images/news1.png" alt="Mean NRC Emotion Scores by Country" class="method-image"/>
+        <img src="https://klaire03.github.io/data-science-portfolio/images/news1.png" alt="Mean NRC Emotion Scores by Country" class="method-image"/>
       </div>
 
       <div class="method-item fade-up">
